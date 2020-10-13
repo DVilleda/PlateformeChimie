@@ -448,7 +448,7 @@ PrefabInstance:
     - target: {fileID: 7849588674698591062, guid: 07a3bf88f145ab74a910bc66239165ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: commencerNiveau
+      value: commencerNiveau1
       objectReference: {fileID: 0}
     - target: {fileID: 7849588674698591062, guid: 07a3bf88f145ab74a910bc66239165ea,
         type: 3}
@@ -1362,7 +1362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1630fea588215dd4b84fcb186b7660a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  niveauChoisi: Main Menu
   loadingScreen: {fileID: 489287958}
   loadingIcon: {fileID: 489287957}
   loadingText: {fileID: 489287955}

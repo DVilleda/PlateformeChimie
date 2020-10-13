@@ -8,12 +8,16 @@ public class PersonnageCtrl : MonoBehaviour
     float vitesse = 0.1f;
 
     [SerializeField]
-    float poussee = 20f;
+    float poussee = 10f;
 
     private Rigidbody2D rb;
+    private Vector2 positionDebutNiveau;
+    [SerializeField]
+    int erreursRestantes = 3;
     Animator anim;
 
     bool regardeDroite = true;
+    public bool finNiveau = false;
 
     //paramètres pour la vérification du contact au sol
     [SerializeField]
@@ -29,6 +33,7 @@ public class PersonnageCtrl : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        positionDebutNiveau = transform.position;
 
         anim.SetBool("ToucheSol", true);
     }
@@ -76,9 +81,26 @@ public class PersonnageCtrl : MonoBehaviour
         }
     }
 
+    public double getErreursRestantes() 
+    {
+        return erreursRestantes;
+    }
+
     public void blesser() 
     {
         anim.SetTrigger("Blessure");
+        erreursRestantes--;
+    }
+
+    void recommencerNiveau() 
+    {
+        rb.position = positionDebutNiveau;
+        erreursRestantes--;
+    }
+
+    void finNiveauCourant() 
+    {
+        finNiveau = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -86,7 +108,13 @@ public class PersonnageCtrl : MonoBehaviour
         if (collision.gameObject.CompareTag("Ennemi"))
         {
             blesser();
-            //rb.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+        }
+        else if (collision.gameObject.CompareTag("TomberMort"))
+        {
+            recommencerNiveau();
+        } else if (collision.gameObject.CompareTag("FinNiveau")) 
+        {
+            finNiveauCourant();
         }
     }
 }

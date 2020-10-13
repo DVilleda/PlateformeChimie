@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SelectionNiveau : MonoBehaviour
 {
-    public string niveauChoisi;
-
     public GameObject loadingScreen, loadingIcon;
     public Text loadingText;
     // Start is called before the first frame update
@@ -19,11 +17,11 @@ public class SelectionNiveau : MonoBehaviour
     // Update is called once per frame
     void Update(){ }
 
-    public void commencerNiveau() {
-        StartCoroutine(LoadStart());
+    public void commencerNiveau1() {
+        StartCoroutine(LoadStart("Level 1"));
     }
 
-    public IEnumerator LoadStart()
+    public IEnumerator LoadStart(string niveauChoisi)
     {
         loadingScreen.SetActive(true);
 
@@ -35,7 +33,7 @@ public class SelectionNiveau : MonoBehaviour
         {
             if (asyncLoad.progress >= .9f)
             {
-                loadingText.text = "Press any key to continue";
+                loadingText.text = "Appuire sur une touche pour continuer";
                 loadingIcon.SetActive(false);
 
                 if (Input.anyKeyDown)

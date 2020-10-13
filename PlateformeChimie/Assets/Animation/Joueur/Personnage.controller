@@ -166,8 +166,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: VitVert
+  - m_ConditionMode: 1
+    m_ConditionEvent: ToucheSol
     m_EventTreshold: 0.05
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -357689764809203377}
@@ -224,25 +224,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: VitVert
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToucheSol
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Blessure
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -357,7 +357,7 @@ AnimatorStateTransition:
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_CanTransitionToSelf: 0
 --- !u!1107 &4787305381096920722
 AnimatorStateMachine:
   serializedVersion: 5
@@ -372,7 +372,7 @@ AnimatorStateMachine:
     m_Position: {x: 140, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -357689764809203377}
-    m_Position: {x: 280, y: 390, z: 0}
+    m_Position: {x: 410, y: 440, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5314657331909609695}
     m_Position: {x: -260, y: 110, z: 0}
@@ -424,9 +424,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: VitVert
-    m_EventTreshold: 0.05
+  - m_ConditionMode: 1
+    m_ConditionEvent: ToucheSol
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4002838557660006513}
   m_Solo: 0
