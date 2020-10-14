@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CtrlEnnemi : MonoBehaviour
 {
+    [SerializeField]
     float vitesse = 1.5f;
+    [SerializeField]
+    float rangeMouvement = 5f;
+
     private new Rigidbody2D rigidbody;
+    private Vector3 ennemiPositionInitiale;
+    private Vector3 ennemiPosition;
 
     bool regardeDroite = true;
     Animator anim;
@@ -14,19 +21,28 @@ public class CtrlEnnemi : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        ennemiPositionInitiale = transform.position;
     }
 
     void FixedUpdate()
     {
         anim.SetFloat("VitHorEn", Mathf.Abs(rigidbody.velocity.x));
         anim.SetFloat("VitVerEn", rigidbody.velocity.y);
-        deplacer(-vitesse);
+
+        if (rigidbody.CompareTag("Ennemi"))
+        {
+            deplacer(-vitesse);
+        }
+        else if (rigidbody.CompareTag("EnnemiV2"))
+        {
+            DeplacerBidirection(rangeMouvement);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        ennemiPosition = transform.position;
     }
 
     public void deplacer(float direction)
@@ -42,6 +58,26 @@ public class CtrlEnnemi : MonoBehaviour
             retourner();
         }
         rigidbody.velocity = new Vector2(vitesse * direction, rigidbody.velocity.y);
+    }
+
+    void DeplacerBidirection(float rangeMouvement) 
+    {
+        if (regardeDroite == true )
+        {
+            deplacer(vitesse);
+            if (ennemiPosition.x > ennemiPositionInitiale.x + rangeMouvement) {
+               regardeDroite = false;
+                retourner();
+            }
+        } else if (!regardeDroite)
+        {
+            deplacer(-vitesse);
+            if (ennemiPosition.x < ennemiPositionInitiale.x - rangeMouvement)
+            {
+                regardeDroite = true;
+                retourner();
+            }
+        }
     }
 
     public void retourner()

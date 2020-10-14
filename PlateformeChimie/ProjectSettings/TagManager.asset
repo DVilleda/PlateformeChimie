@@ -10,6 +10,7 @@ TagManager:
   - Joueur
   - Professeur
   - FinNiveau
+  - EnnemiV2
   layers:
   - Default
   - TransparentFX

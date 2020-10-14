@@ -8,10 +8,12 @@ public class SelectionNiveau : MonoBehaviour
 {
     public GameObject loadingScreen, loadingIcon;
     public Text loadingText;
+    public Text scoreNiveau1, scoreNiveau2;
     // Start is called before the first frame update
     void Start()
     {
-        
+        scoreNiveau1.text = "Score plus récent: " + PlayerPrefs.GetInt("ScoreNiveau1",0)+"%";
+        scoreNiveau2.text = "Score plus récent: " + PlayerPrefs.GetInt("ScoreNiveau2",0)+"%";
     }
 
     // Update is called once per frame

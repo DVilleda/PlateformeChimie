@@ -89,6 +89,7 @@ public class PersonnageCtrl : MonoBehaviour
     public void blesser() 
     {
         anim.SetTrigger("Blessure");
+        rb.position = positionDebutNiveau;
         erreursRestantes--;
     }
 
@@ -105,7 +106,7 @@ public class PersonnageCtrl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ennemi"))
+        if (collision.gameObject.CompareTag("Ennemi") || collision.gameObject.CompareTag("EnnemiV2"))
         {
             blesser();
         }

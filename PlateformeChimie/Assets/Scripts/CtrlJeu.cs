@@ -24,7 +24,8 @@ public class CtrlJeu : MonoBehaviour
     public Rigidbody2D rbFinMonde;
     private TestChimie testChimie = new TestChimie();
     string[] testChimieContenu;
-    public GameObject Question1, Question2, Question3;
+    bool TestActif = false;
+    public GameObject Question1, Question2, Question3,FinQuiz;
     public Text Contenu1, Contenu2, Contenu3;
 
 
@@ -34,6 +35,7 @@ public class CtrlJeu : MonoBehaviour
     //Vérification de l'existance du singleton
     void Start()
     {
+        TestActif = false;
         Scene sceneActuelle = SceneManager.GetActiveScene();
         if(sceneActuelle.name == "Level 1"){
             chancesRestantes = GameObject.Find("Chances Restantes").GetComponent<TextMeshProUGUI>();
@@ -58,8 +60,9 @@ public class CtrlJeu : MonoBehaviour
             {
                 gameOver();
             }
-            if (personnageCtrl.finNiveau) 
+            if (personnageCtrl.finNiveau && TestActif == false) 
             {
+                TestActif = true;
                 Question1.SetActive(true);
                 Time.timeScale = 0f;
             }
@@ -93,20 +96,21 @@ public class CtrlJeu : MonoBehaviour
             Question3.SetActive(true);
         } else if(Question3.activeSelf)
         {
-            CompleterNiveau();
-        }
-        else
-        {
-            Question1.SetActive(true);
+            Question3.SetActive(false);
+            FinQuiz.SetActive(true);
+            if(Input.anyKeyDown)
+            {
+                CompleterNiveau();
+            }
         }
     }
 
-    void calculerPointage() 
+    void CalculerPointage() 
     {
         Scene sceneActuelle = SceneManager.GetActiveScene();
         if (sceneActuelle.name == "Level 1")
         {
-            ScoreNiveau1Ctrl = (questionBonnes + personnageCtrl.getErreursRestantes())/7*100;
+            ScoreNiveau1Ctrl = (questionBonnes + personnageCtrl.getErreursRestantes())/6*100;
             PlayerPrefs.SetInt("ScoreNiveau1", (int)Math.Ceiling(ScoreNiveau1Ctrl));
         }
     }
@@ -121,12 +125,9 @@ public class CtrlJeu : MonoBehaviour
     void CompleterNiveau() 
     {
         Save();
-
-        ecranFinPartie.SetActive(true);
-        if (Input.anyKeyDown)
-        {
-            SceneManager.LoadScene("Selecteur Niveau");
-        }
+        CalculerPointage();
+        SceneManager.LoadScene("Selecteur Niveau");
+        Time.timeScale = 1f;
     }
 
     public void Save() 
@@ -155,16 +156,6 @@ public class CtrlJeu : MonoBehaviour
 
             ScoreNiveau1Ctrl = dataJeu.ScoreNiveau1;
             ScoreNiveau2Ctrl = dataJeu.ScoreNiveau2;
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(collision);
-        Debug.Log("TeST");
-        if (collision.gameObject.CompareTag("Joueur"))
-        {
-            Debug.Log(rbFinMonde);
-            changerQuestion();
         }
     }
 }
