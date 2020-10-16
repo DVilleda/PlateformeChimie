@@ -27,7 +27,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        //SceneManager.LoadScene(firstLevel);
         StartCoroutine(LoadStart());
     }
 
@@ -58,7 +57,7 @@ public class MainMenu : MonoBehaviour
         {
             if (asyncLoad.progress >= .9f)
             {
-                loadingText.text = "Press any key to continue";
+                loadingText.text = "Appuire une touche pour continuer";
                 loadingIcon.SetActive(false);
 
                 if (Input.anyKeyDown)
