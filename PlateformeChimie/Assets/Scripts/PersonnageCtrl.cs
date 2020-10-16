@@ -52,6 +52,7 @@ public class PersonnageCtrl : MonoBehaviour
         
     }
 
+    //Fonction en charge du deplacement du joueur
     public void deplacer(float direction)
     {
         if (direction > 0 && !regardeDroite)
@@ -66,13 +67,15 @@ public class PersonnageCtrl : MonoBehaviour
         }
         rb.velocity = new Vector2(vitesse * direction, rb.velocity.y);
     }
-
+    
+    //Retourne le sprite
     public void retourner()
     {
         Vector2 echelle = new Vector2(-transform.localScale.x, transform.localScale.y);
         transform.localScale = echelle;
     }
 
+    //Fait le personnage sauter
     public void sauter()
     {
         if (toucheSol)
@@ -81,11 +84,13 @@ public class PersonnageCtrl : MonoBehaviour
         }
     }
 
+    //REtourner le nombre de vies qui reste
     public double getErreursRestantes() 
     {
         return erreursRestantes;
     }
 
+    //En charge d'animer la blessure, repositionner le joueur et enlever une vie
     public void blesser() 
     {
         anim.SetTrigger("Blessure");
@@ -93,17 +98,20 @@ public class PersonnageCtrl : MonoBehaviour
         erreursRestantes--;
     }
 
+    //Repositionne le joueur au debut du niveau
     void recommencerNiveau() 
     {
         rb.position = positionDebutNiveau;
         erreursRestantes--;
     }
-
+    
+    //Met le joueur comme ayant fini le niveau
     void finNiveauCourant() 
     {
         finNiveau = true;
     }
 
+    //Gestion de collision avec les differents objet du monde
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ennemi") || collision.gameObject.CompareTag("EnnemiV2"))

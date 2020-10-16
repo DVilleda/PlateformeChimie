@@ -19,8 +19,13 @@ public class SelectionNiveau : MonoBehaviour
     // Update is called once per frame
     void Update(){ }
 
-    public void commencerNiveau1() {
+    public void CommencerNiveau1() {
         StartCoroutine(LoadStart("Level 1"));
+    }
+
+    public void CommencerNiveau2()
+    {
+        StartCoroutine(LoadStart("Level 2"));
     }
 
     public IEnumerator LoadStart(string niveauChoisi)

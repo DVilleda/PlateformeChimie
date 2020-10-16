@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlateformeCtrl : MonoBehaviour
 {
     private Rigidbody2D plateforme2D;
+    [SerializeField]
     float vitesse = 2f;
+    [SerializeField]
     float deltaY = 3f;
-    private Vector2 positionInitiale;
     // Start is called before the first frame update
     void Start()
     {
-        positionInitiale = transform.position;
     }
 
     // Update is called once per frame

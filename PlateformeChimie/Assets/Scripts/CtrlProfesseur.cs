@@ -13,13 +13,14 @@ public class CtrlProfesseur : MonoBehaviour
 
     private new Rigidbody2D rigidbody;
 
-
+    //Fonction en charge de montrer une lecon de chimie selon le numero du professeur
     public void MontrerLecon() 
     {
-        leconsCoursActuelle = leconsChimieCtrl.getLeconsChimieCours1().GetValue(index).ToString();
+        leconsCoursActuelle = leconsChimieCtrl.getLeconsChimieCours().GetValue(index).ToString();
         leconText.text = leconsCoursActuelle?.ToString();
     }
 
+    //Cache la lecon et remet le jeu en marche
     private void CacherLecon() 
     {
         if (leconAffichage.activeSelf && Input.GetKeyDown("z")) 
@@ -43,6 +44,7 @@ public class CtrlProfesseur : MonoBehaviour
         CacherLecon();
     }
 
+    //Gestion des collision avec le joueur.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Joueur"))

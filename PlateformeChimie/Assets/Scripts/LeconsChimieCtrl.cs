@@ -8,13 +8,15 @@ public class LeconsChimieCtrl
 
     private string[] listeLeconsCours;
 
+    //Charger une lecon precise selon l'index
     public string getLeconActuelle(int i) 
     {
         return listeLeconsCours[i];
     }
-    public string[] getLeconsChimieCours1() 
+    //Obtiens toutes les lecons de chimie dans la classe LeconChimie
+    public string[] getLeconsChimieCours() 
     {
-        listeLeconsCours = leconsChimie.getCours1();
+        listeLeconsCours = leconsChimie.getLeconsComplet();
         return listeLeconsCours;
     }
 

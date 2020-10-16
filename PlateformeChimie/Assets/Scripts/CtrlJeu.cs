@@ -23,32 +23,25 @@ public class CtrlJeu : MonoBehaviour
     //Variables Pour le test de chimie
     public Rigidbody2D rbFinMonde;
     private TestChimie testChimie = new TestChimie();
-    string[] testChimieContenu;
     bool TestActif = false;
-    public GameObject Question1, Question2, Question3,FinQuiz;
+    public GameObject Question1, Question2, Question3,FinQuiz,Correct,Incorrect;
     public Text Contenu1, Contenu2, Contenu3;
 
 
     TextMeshProUGUI chancesRestantes;
     public GameObject ecranFinPartie;
 
-    //Vérification de l'existance du singleton
     void Start()
     {
         TestActif = false;
-        Scene sceneActuelle = SceneManager.GetActiveScene();
-        if(sceneActuelle.name == "Level 1"){
-            chancesRestantes = GameObject.Find("Chances Restantes").GetComponent<TextMeshProUGUI>();
-            personnageCtrl = GameObject.Find("Personnage").GetComponent<PersonnageCtrl>();
-            testChimieContenu = testChimie.obtenirTestCours1();
-        }
+        chancesRestantes = GameObject.Find("Chances Restantes").GetComponent<TextMeshProUGUI>();
+        personnageCtrl = GameObject.Find("Personnage").GetComponent<PersonnageCtrl>();
         Load();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (personnageCtrl != null) {
             personnageCtrl.deplacer(Input.GetAxis("Horizontal"));
 
             if (Input.GetAxis("Vertical") > 0)
@@ -56,33 +49,54 @@ public class CtrlJeu : MonoBehaviour
                 personnageCtrl.sauter();
             }
 
-            if (personnageCtrl.getErreursRestantes() < 0)
+            if (personnageCtrl.getErreursRestantes() < 1)
             {
                 gameOver();
             }
+            //Verifier qu'on a obtenu le trophé et commencer le test
             if (personnageCtrl.finNiveau && TestActif == false) 
             {
                 TestActif = true;
                 Question1.SetActive(true);
                 Time.timeScale = 0f;
             }
+            //Mettre a jour le HP restant
             chancesRestantes.text = personnageCtrl.getErreursRestantes().ToString();
-        }
+            
+            //Rétroaction lorsqu' on répond à une question
+            if (Correct.activeSelf || Incorrect.activeSelf) 
+            {
+                if (Input.anyKeyDown)
+                {
+                    Correct.SetActive(false);
+                    Incorrect.SetActive(false);
+                }
+            }
+            if (FinQuiz.activeSelf) {
+                if (Input.anyKeyDown)
+                {
+                    changerQuestion();
+                }
+            }
     }
-
+    
+    //Valider la question et changer la question
     public void validerQuestion(bool boolean) 
     {
         if (boolean)
         {
             questionBonnes++;
-            changerQuestion();
+            Correct.SetActive(true);
+                changerQuestion();
         }
         else 
         {
+            Incorrect.SetActive(true); 
             changerQuestion();
         }
     }
 
+    //Fontionc en chager de changer la question ou de finir le quiz
     void changerQuestion()
     {
         if (Question1.activeSelf)
@@ -98,13 +112,18 @@ public class CtrlJeu : MonoBehaviour
         {
             Question3.SetActive(false);
             FinQuiz.SetActive(true);
-            if(Input.anyKeyDown)
+        }
+        else if (FinQuiz.activeSelf)
+        {
+            if (Input.GetKeyDown("z"))
             {
                 CompleterNiveau();
             }
+            
         }
     }
 
+    //Fonction en charge de calculer les points
     void CalculerPointage() 
     {
         Scene sceneActuelle = SceneManager.GetActiveScene();
@@ -114,6 +133,7 @@ public class CtrlJeu : MonoBehaviour
             PlayerPrefs.SetInt("ScoreNiveau1", (int)Math.Ceiling(ScoreNiveau1Ctrl));
         }
     }
+    //Fonction pour finir le niveau si on perds
     void gameOver() 
     {
         ecranFinPartie.SetActive(true);
@@ -122,6 +142,7 @@ public class CtrlJeu : MonoBehaviour
         }
     }
 
+    //Fonction qui sauvegarde, calcule les points et finis le niveau.
     void CompleterNiveau() 
     {
         Save();
