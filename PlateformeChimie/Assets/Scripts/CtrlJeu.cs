@@ -22,7 +22,6 @@ public class CtrlJeu : MonoBehaviour
 
     //Variables Pour le test de chimie
     public Rigidbody2D rbFinMonde;
-    private TestChimie testChimie = new TestChimie();
     bool TestActif = false;
     public GameObject Question1, Question2, Question3,FinQuiz,Correct,Incorrect;
     public Text Contenu1, Contenu2, Contenu3;
